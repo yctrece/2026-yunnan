@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="theme-color" content="#f3efe6" />
+<title>滇西北自驾行程卡 · 10/1–10/5</title>
+<style>
+  :root {
+    --bg: #f4f1ea;
+    --card: #fffdf8;
+    --ink: #1c241f;
+    --muted: #5c6b63;
+    --line: #d9d2c5;
+    --accent: #1a3a2f;
+    --accent-soft: #e7efe9;
+    --warn: #8a4b1f;
+    --warn-bg: #f7efe4;
+    --ok: #2f5d3a;
+    --ok-bg: #e8f2ea;
+    --danger: #7a2e2e;
+    --danger-bg: #f6eaea;
+    --radius: 14px;
+    --shadow: 0 1px 0 rgba(28,36,31,.04);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    padding-bottom: 88px;
+  }
+  .top {
+    position: sticky; top: 0; z-index: 20;
+    background: #f3efe6;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 16px 12px;
+    padding-top: calc(12px + env(safe-area-inset-top));
+  }
+  .top h1 { margin: 0; font-size: 18px; font-weight: 650; letter-spacing: .02em; }
+  .top p { margin: 4px 0 10px; font-size: 12px; color: var(--muted); }
+  .tabs {
+    display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px; scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tabs a {
+    flex: 0 0 auto;
+    text-decoration: none;
+    color: var(--accent);
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .copy-box {
+    flex: 1;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    width: 100%;
+    text-align: left;
+    font: inherit;
+    font-size: 12.5px;
+    line-height: 1.4;
+    color: var(--ink);
+    background: #fff;
+    border: 1px dashed #c9bfae;
+    border-radius: 10px;
+    padding: 8px 10px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .copy-box:active { background: var(--accent-soft); }
+  .copy-box .copy-tag {
+    flex: 0 0 auto;
+    font-size: 11px;
+    font-weight: 650;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 6px;
+    padding: 3px 7px;
+  }
+  .copy-box.copied .copy-tag {
+    color: var(--ok);
+    background: var(--ok-bg);
+  }
+  .wrap { padding: 14px 14px 28px; max-width: 720px; margin: 0 auto; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+  }
+  .card h2 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    display: flex; align-items: baseline; gap: 8px;
+  }
+  .card h2 .tag {
+    font-size: 11px; font-weight: 600;
+    background: var(--accent-soft); color: var(--accent);
+    border-radius: 6px; padding: 2px 7px;
+  }
+  .meta {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-bottom: 10px;
+  }
+  .chip {
+    font-size: 11px;
+    background: #efeae1;
+    color: var(--muted);
+    border-radius: 6px;
+    padding: 3px 8px;
+  }
+  .chip.hard { background: var(--danger-bg); color: var(--danger); }
+  .chip.ok { background: var(--ok-bg); color: var(--ok); }
+  /* .chip.warn { background: var(--warn-bg); color: var(--warn); } */
+  table {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+  }
+  th, td {
+    border-top: 1px solid var(--line);
+    padding: 9px 6px; vertical-align: top; text-align: left;
+  }
+  th { width: 72px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+  .note {
+    margin-top: 10px; padding: 10px 12px; border-radius: 10px;
+    background: var(--warn-bg); color: var(--warn); font-size: 12.5px;
+  }
+  .note.ok { background: var(--ok-bg); color: var(--ok); }
+  .note.danger { background: var(--danger-bg); color: var(--danger); }
+  .section-title {
+    margin: 18px 2px 8px;
+    font-size: 13px; font-weight: 700;
+    color: var(--accent); letter-spacing: .08em;
+  }
+  .route {
+    margin: 0; padding-left: 18px; font-size: 13px;
+  }
+  .route li { margin: 6px 0; }
+  .nav-hint {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+    background: rgba(244,241,234,.94);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--line);
+    padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+    display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;
+  }
+  .nav-hint a {
+    text-decoration: none; font-size: 12px;
+    color: var(--accent); background: #fff;
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 7px 10px;
+  }
+  .hero-rules li { margin: 4px 0; font-size: 13px; }
+  @media print {
+    .top, .nav-hint { display: none; }
+    body { padding: 0; background: #fff; }
+    .card { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+  <header class="top">
+    <h1>滇西北自驾行程卡</h1>
+    <p>哈弗H6 · 10/1下午–10/5凌晨 · 昆明⇄香格里拉/梅里</p>
+    <nav class="tabs">
+      <a href="#d1">D1 大理</a>
+      <a href="#d2">D2 虎跳</a>
+      <a href="#hutiao">中虎跳</a>
+      <a href="#d3">D3 普达措</a>
+      <a href="#pudacuo">普达措</a>
+      <a href="#napahai">纳帕海</a>
+      <a href="#lamu">拉姆央措</a>
+      <a href="#d4">D4 梅里</a>
+      <a href="#d5">D5 还车</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <div class="card" id="rules">
+      <ul class="hero-rules">
+        <li>不去白水台、哈巴观景台、碧塔海、松赞林不进寺</li>
+        <li>普达措只游览：悠幽步道 + 属都湖</li>
+        <li>2号只在短线折返、且傍晚有余量时看纳帕海；走了 Halfway 长线，或没看成，都改到3号下午</li>
+        <li>3号顺序：普达措 →（补纳帕海）→ 拉姆央措倒影 → 北上。不进松赞林</li>
+        <li>2号晚住楠赛林卡（龙潭南岸）；3号晚住梅里悦居民宿（飞来寺）</li>
+        <li>4号不停香格里拉景点；日出后直奔长水</li>
+      </ul>
+      <div class="note danger">10/5 04:45 长水还车、06:45 起飞。4号 ≤09:00 离开飞来寺南下；开到凌晨算计划内。</div>
+    </div>
+
+    <div class="section-title">每日行程</div>
+
+    <section class="card" id="d1">
+      <h2>Day1 · 10/1 <span class="tag">昆明南站→大理</span></h2>
+      <div class="meta">
+        <span class="chip">约340km / 国庆4–7h都可能</span>
+        <span class="chip ok">夜宿苍山暮雪</span>
+      </div>
+      <table>
+        <tr><th>15:40</th><td>到昆明南站，神州取 H6，验车全程录像
+          <button type="button" class="copy-box" data-copy="昆明市呈贡区昆明南站到达层7号出口对面C区停车场C-5、C-6车道">
+            <span>昆明市呈贡区昆明南站到达层7号出口对面C区停车场C-5、C-6车道</span>
+            <span class="copy-tag">复制</span>
+          </button>
+        </td></tr>
+        <tr><th>取完即走</th><td>导航下方店名 · G56杭瑞高速
+          <button type="button" class="copy-box" data-copy="苍山暮雪·智能轻奢花园民宿（大理古城洱海门店）">
+            <span>苍山暮雪·智能轻奢花园民宿（大理古城洱海门店）</span>
+            <span class="copy-tag">复制</span>
+          </button>
+          <button type="button" class="copy-box" data-copy="大理镇东门村委会大院子村6组51号" style="margin-top:6px">
+            <span>大理镇东门村委会大院子村6组51号</span>
+            <span class="copy-tag">复制</span>
+          </button>
+        </td></tr>
+        <tr><th>途中</th><td>楚雄服务区只加油，顺便买点路上吃的</td></tr>
+        <tr><th>抵达</th><td>几点到就几点入住。晚饭在大理古城吃</td></tr>
+        <tr><th>晚上</th><td>确定去古城（出门右转约3分钟人民路）。凌晨12点还没到古城就不去，直接睡。早睡，保 2 号 06:30</td></tr>
+      </table>
+      <div class="note">到了先入住，再走路去古城吃饭。</div>
+    </section>
+
+    <section class="card" id="d2">
+      <h2>Day2 · 10/2 <span class="tag">中虎跳→独克宗</span></h2>
+      <div class="meta">
+        <span class="chip">06:30必须出发</span>
+        <span class="chip">保虎跳为重</span>
+        <span class="chip ok">夜宿楠赛林卡</span>
+      </div>
+      <table>
+        <tr><th>06:30</th><td>苍山暮雪出发 → 中虎跳（张老师客栈/中虎跳公路）</td></tr>
+        <tr><th>11:00+</th><td>抵达中虎跳，车停张老师客栈。15 分钟内定长线或短线，路线见下方</td></tr>
+        <tr><th>长线</th><td><b>13:00 前到，且车能送到 Halfway（或更近的上路点）</b>：Halfway → 龙洞瀑布 → 张老师客栈。16:00 前回到车边，简餐后北上。这一档不做纳帕海</td></tr>
+        <tr><th>短线</th><td><b>没车、说不清、过了 13:00，或高路不让走</b>：从客栈往 Halfway 方向上走 40–60 分钟，看见峡谷就折返。来回 1.5–2 小时</td></tr>
+        <tr><th>简餐后</th><td>北上香格里拉。徒步可以缩短，北上不缩短</td></tr>
+        <tr><th>分支A</th><td><b>只在短线、且傍晚有余量</b>：纳帕海车览 40–70 分钟（路线见下方）→ 吃饭 → 楠赛林卡入住 → 夜游</td></tr>
+        <tr><th>分支B</th><td><b>走了长线，或没时间</b>：跳过纳帕海，直奔楠赛林卡。改到 3 号下午、北上前补看</td></tr>
+        <tr><th>入住</th><td>楠赛林卡 · 龙潭湖南岸，车停酒店停车场。走路进北门
+          <button type="button" class="copy-box" data-copy="楠赛林卡国际旅游精品酒店(香格里拉古城店)">
+            <span>楠赛林卡国际旅游精品酒店(香格里拉古城店)</span>
+            <span class="copy-tag">复制</span>
+          </button>
+          <button type="button" class="copy-box" data-copy="香格里拉市建塘镇龙潭南路安康巷7号" style="margin-top:6px">
+            <span>香格里拉市建塘镇龙潭南路安康巷7号</span>
+            <span class="copy-tag">复制</span>
+          </button>
+        </td></tr>
+        <tr><th>晚上</th><td>时间够：龟山公园大转经筒、大经幡、月光广场</td></tr>
+      </table>
+      <div class="note">海拔升到约3300m：少喝酒、别猛洗热水澡、头痛就放慢。备现金付中虎跳村民维护费。楠赛林卡在龙潭南岸，车停酒店停车场，走路进北门。</div>
+    </section>
+
+    <section class="card" id="hutiao">
+      <h2>中虎跳两档 <span class="tag">车停张老师，走回自己的车</span></h2>
+      <ol class="route">
+        <li>导航 <b>香格里拉中虎跳张老师客栈</b>，车停客栈门口或路边。不要导航上虎跳景区，也不要开去下虎跳。
+          <button type="button" class="copy-box" data-copy="香格里拉中虎跳张老师客栈" style="margin-top:8px">
+            <span>香格里拉中虎跳张老师客栈</span>
+            <span class="copy-tag">复制</span>
+          </button>
+          <button type="button" class="copy-box" data-copy="迪庆藏族自治州香格里拉市虎跳峡镇中虎跳" style="margin-top:6px">
+            <span>迪庆藏族自治州香格里拉市虎跳峡镇中虎跳</span>
+            <span class="copy-tag">复制</span>
+          </button>
+        </li>
+        <li>停车后 <b>15 分钟内</b>问当地车：车实际停在哪、单程多久、Halfway 走回张老师的高路今天开不开。只接受送到 <b>Halfway</b>，或对方明确说比茶马客栈更靠近 Halfway 的上路点。不要接受「送到茶马客栈，再自己走完全程回张老师」。</li>
+        <li><b>长线</b>：13:00 前到，下车点说清楚，而且这段高路今天能走。沿高路走回自己的车：Halfway → 龙洞瀑布 → 张老师客栈。大约 6 公里、2.5–3 小时，以下坡为主。看到瀑布和峡谷就够，不往江边下。穿防滑徒步鞋，慢慢走，不跑不跳。<b>16:00 前回到车边</b>，简餐后北上。这一档不做纳帕海。</li>
+        <li><b>短线</b>：没车、价格或下车点说不清、到的时候已过 13:00，或对方说高路不让走。从张老师客栈沿去 Halfway 的路往上走 40–60 分钟，到能看见峡谷的平台就折返。来回 1.5–2 小时。不要为了走到 Halfway 继续爬，这一头是上坡，当天走不完。</li>
+        <li><b>不去</b>张老师小路下江、勇者天梯、一线天、发呆石。不翻网，也不要交钱让人带进未开放区域。</li>
+        <li>若对方说这段高路今天也不能进：公路边看一眼峡谷就走。徒步可以缩短，后面北上香格里拉不缩短。</li>
+      </ol>
+      <div class="note">2025年4月起，张老师小路和江边被列为未开放区域，天梯已拆除，现场常有人值守。高路以当天现场为准。村民维护费备现金，以前大约 10–15 元/人，以现场为准。不住客栈，没有住客免费。</div>
+    </section>
+
+    <section class="card" id="d3">
+      <h2>Day3 · 10/3 <span class="tag">普达措→飞来寺</span></h2>
+      <div class="meta">
+        <span class="chip">悠幽+属都湖</span>
+        <span class="chip">不去碧塔海</span>
+        <span class="chip">午后：纳帕海（若未看）→拉姆央措</span>
+        <span class="chip ok">夜宿梅里悦居</span>
+      </div>
+      <table>
+        <tr><th>07:20</th><td>楠赛林卡出发 → 普达措（私家车停游客中心，园内坐观光车）</td></tr>
+        <tr><th>08:00–12:30</th><td>园内：先悠幽步道，再属都湖。路线见下方</td></tr>
+        <tr><th>出园后</th><td>简餐 + 香格里拉加满油。2号已看过纳帕海就跳过下一行</td></tr>
+        <tr><th>纳帕海</th><td><b>仅2号没看时</b>：车览 40–70 分钟，路线见下方。看完再去拉姆央措</td></tr>
+        <tr><th>拉姆央措</th><td>固定短停：游客中心拍松赞林倒影，不进寺。路线见下方。赶路就拍一张即走</td></tr>
+        <tr><th>北上</th><td>从拉姆央措直接走 · 途中金沙江大拐弯最多停 10–15 分钟，直达梅里悦居民宿</td></tr>
+        <tr><th>晚上</th><td>入住梅里悦居民宿，车停民宿
+          <button type="button" class="copy-box" data-copy="梅里悦居民宿(飞来寺梅里雪山景区店)">
+            <span>梅里悦居民宿(飞来寺梅里雪山景区店)</span>
+            <span class="copy-tag">复制</span>
+          </button>
+          <button type="button" class="copy-box" data-copy="迪庆藏族自治州德钦县升平镇巨水村委会飞来寺15号" style="margin-top:6px">
+            <span>迪庆藏族自治州德钦县升平镇巨水村委会飞来寺15号</span>
+            <span class="copy-tag">复制</span>
+          </button>
+        </td></tr>
+      </table>
+      <div class="note">3号把普达措走完再走。纳帕海只补2号漏掉的那段，拉姆央措只拍倒影。晚上入住梅里悦居民宿。高反明显就少走动、早点回房间躺下。</div>
+      <div class="note">月照银山：10/3 是下弦月（约一半亮），月亮大约后半夜才升，晚上 9–10 点多半看不到银山。天晴且没困到倒，零点后看一眼即可，不要为它熬夜——4号才是大驾驶日。</div>
+    </section>
+
+    <section class="card" id="pudacuo">
+      <h2>普达措园内顺序 <span class="tag">必须按这个走</span></h2>
+      <ol class="route">
+        <li><b>游客中心</b>购票（门票+观光车，私家车不能进园）→ 上环保车。</li>
+        <li><b>第一站下车：悠幽步道</b>（属都岗河）。约 2.2km 平路溪流林间，40–60 分钟。这段 <b>14:00 关闭</b>，所以必须早上去、先走它。</li>
+        <li>步道走完在出口再上观光车，<b>第二站下车：属都湖</b>。</li>
+        <li><b>属都湖木栈道</b>约 3.3km，慢慢走 1.5–2.5 小时。湖光、草甸、冷杉是今天精华。游船非必须；体力够再临时买。</li>
+        <li>栈道终点上观光车，<b>不要继续坐去碧塔海</b>，直接回游客中心出园。</li>
+      </ol>
+      <div class="note ok">砍法：高反明显就缩短悠幽（走一段就上车）或属都湖只走精华段；不要临时改去碧塔海。园内慢走，禁止跑跳。</div>
+    </section>
+
+    <section class="card" id="napahai">
+      <h2>纳帕海车览 <span class="tag">40–70分钟，不绕整圈</span></h2>
+      <ol class="route">
+        <li><b>不要导航「纳帕海」</b>。这个名字经常被带到私人马场，骑马路要钱。环湖公路本身免费。</li>
+        <li><b>第一站：香格里拉高山植物园</b>。停山坡观景平台，俯瞰整片海子，约10分钟。园子若在整修，只看平台，不进园逛。
+          <button type="button" class="copy-box" data-copy="香格里拉高山植物园" style="margin-top:8px">
+            <span>香格里拉高山植物园</span>
+            <span class="copy-tag">复制</span>
+          </button>
+        </li>
+        <li><b>第二站：环湖西路</b>。从植物园下来后沿环湖西路开，贴水面或草甸的那段就是精华。看到就靠边拍。不进牧民草场，不进收费马场，浅水路面不硬闯。
+          <button type="button" class="copy-box" data-copy="香格里拉市环湖西路" style="margin-top:8px">
+            <span>香格里拉市环湖西路</span>
+            <span class="copy-tag">复制</span>
+          </button>
+        </li>
+        <li>40–70 分钟到这里就够。整圈约 40 公里、要 2–3 小时，<b>这次不绕完</b>。时间还多，再顺路看一眼依拉草原。
+          <button type="button" class="copy-box" data-copy="依拉草原" style="margin-top:8px">
+            <span>依拉草原</span>
+            <span class="copy-tag">复制</span>
+          </button>
+        </li>
+        <li><b>结束去向</b>：2号回楠赛林卡。3号接着去松赞林景区游客中心，不要先折回古城。</li>
+      </ol>
+      <div class="note ok">10月初仍可能有水，水位看当年雨水；退水了就是依拉草原，一样看。只做植物园加环湖西路，不绕整圈。</div>
+    </section>
+
+    <section class="card" id="lamu">
+      <h2>拉姆央措倒影 <span class="tag">只拍照，不进寺</span></h2>
+      <ol class="route">
+        <li>导航 <b>松赞林景区游客中心</b>（建塘镇尼旺路，独克宗往北约 5 公里）。停游客中心停车场，一般免费。外地车不能开上山。
+          <button type="button" class="copy-box" data-copy="松赞林景区游客中心" style="margin-top:8px">
+            <span>松赞林景区游客中心</span>
+            <span class="copy-tag">复制</span>
+          </button>
+          <button type="button" class="copy-box" data-copy="香格里拉市建塘镇尼旺路3号" style="margin-top:6px">
+            <span>香格里拉市建塘镇尼旺路3号</span>
+            <span class="copy-tag">复制</span>
+          </button>
+        </li>
+        <li><b>不要导航</b>「214国道松赞林寺观景台」或「古龙村观景台」。那是山坡俯瞰金顶，没有湖面倒影。</li>
+        <li>寺在北、湖在南。从湖南岸往北拍，才能把松赞林收进水面。<b>不买票、不坐观光车上山。</b></li>
+        <li>沿环湖栈道走大约 200 米到 <b>浮桥</b>，这是比较完整的全寺倒影。无风才像镜子；风大就碎，拍一张就走。</li>
+        <li>绕湖一圈约 1 小时，<b>这次不绕</b>。栈道如果也要检票，就在停车场或路边拍，不要为了进寺买票。</li>
+        <li>拍完直接北上飞来寺，入住梅里悦居民宿。途中金沙江大拐弯最多停 10–15 分钟。
+          <button type="button" class="copy-box" data-copy="梅里悦居民宿(飞来寺梅里雪山景区店)" style="margin-top:8px">
+            <span>梅里悦居民宿(飞来寺梅里雪山景区店)</span>
+            <span class="copy-tag">复制</span>
+          </button>
+          <button type="button" class="copy-box" data-copy="迪庆藏族自治州德钦县升平镇巨水村委会飞来寺15号" style="margin-top:6px">
+            <span>迪庆藏族自治州德钦县升平镇巨水村委会飞来寺15号</span>
+            <span class="copy-tag">复制</span>
+          </button>
+        </li>
+      </ol>
+      <div class="note ok">砍法：赶路就缩短到路边一张，不绕湖。它在出城北上的路口旁，几乎不绕路，所以不整段删。</div>
+    </section>
+
+    <section class="card" id="d4">
+      <h2>Day4 · 10/4 <span class="tag">日照金山→长水</span></h2>
+      <div class="meta">
+        <span class="chip hard">≤09:00离开</span>
+        <span class="chip">驾驶12–16h都算计划内</span>
+        <span class="chip">不停香格里拉景点</span>
+      </div>
+      <table>
+        <tr><th>06:30–06:50</th><td>从梅里悦居出发，到飞来寺观景台就位
+          <button type="button" class="copy-box" data-copy="飞来寺观景台停车场">
+            <span>飞来寺观景台停车场</span>
+            <span class="copy-tag">复制</span>
+          </button>
+        </td></tr>
+        <tr><th>07:20–08:00</th><td>日照金山（约15–30分钟，看云；看不到也走）</td></tr>
+        <tr><th>08:40前</th><td>早饭、回梅里悦居退房、收行李</td></tr>
+        <tr><th>≤09:00</th><td>出发南下 · 导航下方店名（勿加香格里拉景点途经）
+          <button type="button" class="copy-box" data-copy="昆明长水国际机场智选假日酒店">
+            <span>昆明长水国际机场智选假日酒店</span>
+            <span class="copy-tag">复制</span>
+          </button>
+          <button type="button" class="copy-box" data-copy="滇中新区长水街道凌翔社区新320国道5088号" style="margin-top:6px">
+            <span>滇中新区长水街道凌翔社区新320国道5088号</span>
+            <span class="copy-tag">复制</span>
+          </button>
+        </td></tr>
+        <tr><th>过香格</th><td>只加油+午饭（≤30分钟），不进任何景点</td></tr>
+        <tr><th>夜里</th><td>开到深夜/凌晨都算计划内。入住智选假日（24小时前台）</td></tr>
+      </table>
+      <div class="note">两人换开，每人连续≤2.5小时。到酒店后：按合同加满油、清车、设 04:00 闹钟。前一晚尽量网上值机。</div>
+    </section>
+
+    <section class="card" id="d5">
+      <h2>Day5 · 10/5 <span class="tag">还车登机</span></h2>
+      <div class="meta">
+        <span class="chip hard">04:45还车</span>
+        <span class="chip hard">06:45起飞</span>
+      </div>
+      <table>
+        <tr><th>04:15</th><td>智选假日出门，开去机场停车楼（约12分钟）</td></tr>
+        <tr><th>04:45</th><td>神州还车（验车录像）
+          <button type="button" class="copy-box" data-copy="昆明市官渡区长水机场停车楼B3层J07车道1号车位">
+            <span>昆明市官渡区长水机场停车楼B3层J07车道1号车位</span>
+            <span class="copy-tag">复制</span>
+          </button>
+        </td></tr>
+        <tr><th>05:30前</th><td>值机安检</td></tr>
+        <tr><th>06:45</th><td>起飞回广东</td></tr>
+      </table>
+    </section>
+  </main>
+
+  <nav class="nav-hint">
+    <a href="#d1">D1</a>
+    <a href="#d2">D2</a>
+    <a href="#hutiao">中虎跳</a>
+    <a href="#d3">D3</a>
+    <a href="#pudacuo">普达措</a>
+    <a href="#napahai">纳帕海</a>
+    <a href="#lamu">拉姆央措</a>
+    <a href="#d4">D4</a>
+    <a href="#d5">D5</a>
+  </nav>
+  <script>
+    function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text);
+      }
+      return new Promise(function (resolve, reject) {
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand("copy") ? resolve() : reject();
+        } catch (e) {
+          reject(e);
+        } finally {
+          document.body.removeChild(ta);
+        }
+      });
+    }
+    document.querySelectorAll(".copy-box").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var text = btn.getAttribute("data-copy") || "";
+        var tag = btn.querySelector(".copy-tag");
+        copyText(text).then(function () {
+          btn.classList.add("copied");
+          if (tag) tag.textContent = "已复制";
+          setTimeout(function () {
+            btn.classList.remove("copied");
+            if (tag) tag.textContent = "复制";
+          }, 1500);
+        }).catch(function () {
+          if (tag) tag.textContent = "长按复制";
+        });
+      });
+    });
+  </script>
+</body>
+</html>
