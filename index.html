@@ -62,10 +62,6 @@
     font-size: 12px;
     white-space: nowrap;
   }
-  .copy-row {
-    display: flex; gap: 8px; align-items: stretch;
-    margin-top: 8px;
-  }
   .copy-box {
     flex: 1;
     display: flex; align-items: center; justify-content: space-between; gap: 8px;
@@ -128,7 +124,7 @@
   }
   .chip.hard { background: var(--danger-bg); color: var(--danger); }
   .chip.ok { background: var(--ok-bg); color: var(--ok); }
-  .chip.warn { background: var(--warn-bg); color: var(--warn); }
+  /* .chip.warn { background: var(--warn-bg); color: var(--warn); } */
   table {
     width: 100%; border-collapse: collapse; font-size: 13px;
   }
@@ -143,28 +139,11 @@
   }
   .note.ok { background: var(--ok-bg); color: var(--ok); }
   .note.danger { background: var(--danger-bg); color: var(--danger); }
-  ul.check { list-style: none; padding: 0; margin: 0; }
-  ul.check li {
-    display: flex; gap: 10px; align-items: flex-start;
-    padding: 9px 0; border-top: 1px solid var(--line); font-size: 13.5px;
-  }
-  ul.check li:first-child { border-top: 0; }
-  ul.check input {
-    margin-top: 3px; width: 18px; height: 18px; flex: 0 0 auto;
-    accent-color: var(--accent);
-  }
   .section-title {
     margin: 18px 2px 8px;
     font-size: 13px; font-weight: 700;
     color: var(--accent); letter-spacing: .08em;
   }
-  .kv { font-size: 13px; }
-  .kv div {
-    display: grid; grid-template-columns: 88px 1fr;
-    gap: 6px; padding: 7px 0; border-top: 1px solid var(--line);
-  }
-  .kv div:first-child { border-top: 0; }
-  .kv b { color: var(--muted); font-weight: 600; }
   .route {
     margin: 0; padding-left: 18px; font-size: 13px;
   }
@@ -205,8 +184,6 @@
       <a href="#lamu">拉姆央措</a>
       <a href="#d4">D4 梅里</a>
       <a href="#d5">D5 还车</a>
-      <a href="#pack">物品</a>
-      <a href="#car">租车</a>
     </nav>
   </header>
 
@@ -215,9 +192,9 @@
       <ul class="hero-rules">
         <li>不去白水台、哈巴观景台、碧塔海、松赞林不进寺</li>
         <li>普达措只游览：悠幽步道 + 属都湖</li>
-        <li>2号傍晚有时间优先纳帕海车览；没看成就改到3号下午</li>
+        <li>2号只在短线折返、且傍晚有余量时看纳帕海；走了 Halfway 长线，或没看成，都改到3号下午</li>
         <li>3号顺序：普达措 →（补纳帕海）→ 拉姆央措倒影 → 北上。不进松赞林</li>
-        <li>2号晚住楠赛林卡（龙潭南岸）；3号飞来寺睡车（顶不住再订房）</li>
+        <li>2号晚住楠赛林卡（龙潭南岸）；3号晚住梅里悦居民宿（飞来寺）</li>
         <li>4号不停香格里拉景点；日出后直奔长水</li>
       </ul>
       <div class="note danger">10/5 04:45 长水还车、06:45 起飞。4号 ≤09:00 离开飞来寺南下；开到凌晨算计划内。</div>
@@ -252,7 +229,7 @@
         <tr><th>抵达</th><td>几点到就几点入住。晚饭在大理古城吃</td></tr>
         <tr><th>晚上</th><td>确定去古城（出门右转约3分钟人民路）。凌晨12点还没到古城就不去，直接睡。早睡，保 2 号 06:30</td></tr>
       </table>
-      <div class="note">今天别绕洱海。入住前打电话让前台留车位；跟老板说 2 号清晨 6:30 离店怎么交钥匙。到了先入住，再走路去古城吃饭。</div>
+      <div class="note">到了先入住，再走路去古城吃饭。</div>
     </section>
 
     <section class="card" id="d2">
@@ -264,11 +241,12 @@
       </div>
       <table>
         <tr><th>06:30</th><td>苍山暮雪出发 → 中虎跳（张老师客栈/中虎跳公路）</td></tr>
-        <tr><th>11:00+</th><td>抵达中虎跳（国庆可能更晚）</td></tr>
-        <tr><th>徒步</th><td>张老师小路下江边，原路返回（不去天梯）。路线见下方。晚到就少拍、看到江就折返，不压缩北上</td></tr>
-        <tr><th>简餐后</th><td>北上香格里拉</td></tr>
-        <tr><th>分支A</th><td><b>傍晚有余量</b>：纳帕海车览 40–70 分钟（路线见下方）→ 吃饭 → 楠赛林卡入住 → 夜游</td></tr>
-        <tr><th>分支B</th><td><b>没时间</b>：跳过纳帕海，直奔楠赛林卡。改到 3 号下午、北上前补看</td></tr>
+        <tr><th>11:00+</th><td>抵达中虎跳，车停张老师客栈。15 分钟内定长线或短线，路线见下方</td></tr>
+        <tr><th>长线</th><td><b>13:00 前到，且车能送到 Halfway（或更近的上路点）</b>：Halfway → 龙洞瀑布 → 张老师客栈。16:00 前回到车边，简餐后北上。这一档不做纳帕海</td></tr>
+        <tr><th>短线</th><td><b>没车、说不清、过了 13:00，或高路不让走</b>：从客栈往 Halfway 方向上走 40–60 分钟，看见峡谷就折返。来回 1.5–2 小时</td></tr>
+        <tr><th>简餐后</th><td>北上香格里拉。徒步可以缩短，北上不缩短</td></tr>
+        <tr><th>分支A</th><td><b>只在短线、且傍晚有余量</b>：纳帕海车览 40–70 分钟（路线见下方）→ 吃饭 → 楠赛林卡入住 → 夜游</td></tr>
+        <tr><th>分支B</th><td><b>走了长线，或没时间</b>：跳过纳帕海，直奔楠赛林卡。改到 3 号下午、北上前补看</td></tr>
         <tr><th>入住</th><td>楠赛林卡 · 龙潭湖南岸，车停酒店停车场。走路进北门
           <button type="button" class="copy-box" data-copy="楠赛林卡国际旅游精品酒店(香格里拉古城店)">
             <span>楠赛林卡国际旅游精品酒店(香格里拉古城店)</span>
@@ -285,7 +263,7 @@
     </section>
 
     <section class="card" id="hutiao">
-      <h2>中虎跳新手线 <span class="tag">张老师小路，不去天梯</span></h2>
+      <h2>中虎跳两档 <span class="tag">车停张老师，走回自己的车</span></h2>
       <ol class="route">
         <li>导航 <b>香格里拉中虎跳张老师客栈</b>，车停客栈门口或路边。不要导航上虎跳景区，也不要开去下虎跳。
           <button type="button" class="copy-box" data-copy="香格里拉中虎跳张老师客栈" style="margin-top:8px">
@@ -297,22 +275,22 @@
             <span class="copy-tag">复制</span>
           </button>
         </li>
-        <li>从小路入口下江。村民维护费备现金，以前大约 10–15 元/人，以现场为准。不住客栈，没有住客免费。</li>
-        <li><b>沿张老师小路下到江边</b>。去程下坡约 30–40 分钟，碎石、有点陡。穿防滑徒步鞋，慢慢走，不跑不跳。</li>
-        <li>江边看到峡谷和虎跳石就够。拍照后 <b>原路返回</b>，上坡大约 40–60 分钟。来回按 1.5–2 小时算。</li>
-        <li><b>不去</b>勇者天梯、一线天，也不去发呆石排队拍照。天梯近乎垂直，而且不在这条原路上。</li>
-        <li>晚到就少拍，看到江面就折返。徒步可以缩短，后面北上香格里拉不缩短。</li>
+        <li>停车后 <b>15 分钟内</b>问当地车：车实际停在哪、单程多久、Halfway 走回张老师的高路今天开不开。只接受送到 <b>Halfway</b>，或对方明确说比茶马客栈更靠近 Halfway 的上路点。不要接受「送到茶马客栈，再自己走完全程回张老师」。</li>
+        <li><b>长线</b>：13:00 前到，下车点说清楚，而且这段高路今天能走。沿高路走回自己的车：Halfway → 龙洞瀑布 → 张老师客栈。大约 6 公里、2.5–3 小时，以下坡为主。看到瀑布和峡谷就够，不往江边下。穿防滑徒步鞋，慢慢走，不跑不跳。<b>16:00 前回到车边</b>，简餐后北上。这一档不做纳帕海。</li>
+        <li><b>短线</b>：没车、价格或下车点说不清、到的时候已过 13:00，或对方说高路不让走。从张老师客栈沿去 Halfway 的路往上走 40–60 分钟，到能看见峡谷的平台就折返。来回 1.5–2 小时。不要为了走到 Halfway 继续爬，这一头是上坡，当天走不完。</li>
+        <li><b>不去</b>张老师小路下江、勇者天梯、一线天、发呆石。不翻网，也不要交钱让人带进未开放区域。</li>
+        <li>若对方说这段高路今天也不能进：公路边看一眼峡谷就走。徒步可以缩短，后面北上香格里拉不缩短。</li>
       </ol>
-      <div class="note">2025年4月起，张老师小路和江边被列为未开放区域，天梯已拆除，现场常有人值守。到了若仍封闭或被劝返：不要翻网，也不要交钱让人带下去。改在公路边看一眼峡谷就走。</div>
+      <div class="note">2025年4月起，张老师小路和江边被列为未开放区域，天梯已拆除，现场常有人值守。高路以当天现场为准。村民维护费备现金，以前大约 10–15 元/人，以现场为准。不住客栈，没有住客免费。</div>
     </section>
 
     <section class="card" id="d3">
-      <h2>Day3 · 10/3 <span class="tag">普达措→飞来寺睡车</span></h2>
+      <h2>Day3 · 10/3 <span class="tag">普达措→飞来寺</span></h2>
       <div class="meta">
         <span class="chip">悠幽+属都湖</span>
         <span class="chip">不去碧塔海</span>
         <span class="chip">午后：纳帕海（若未看）→拉姆央措</span>
-        <span class="chip">夜宿车内 / 顶不住订房</span>
+        <span class="chip ok">夜宿梅里悦居</span>
       </div>
       <table>
         <tr><th>07:20</th><td>楠赛林卡出发 → 普达措（私家车停游客中心，园内坐观光车）</td></tr>
@@ -320,19 +298,19 @@
         <tr><th>出园后</th><td>简餐 + 香格里拉加满油。2号已看过纳帕海就跳过下一行</td></tr>
         <tr><th>纳帕海</th><td><b>仅2号没看时</b>：车览 40–70 分钟，路线见下方。看完再去拉姆央措</td></tr>
         <tr><th>拉姆央措</th><td>固定短停：游客中心拍松赞林倒影，不进寺。路线见下方。赶路就拍一张即走</td></tr>
-        <tr><th>北上</th><td>从拉姆央措直接走 · 途中金沙江大拐弯最多停 10–15 分钟
-          <button type="button" class="copy-box" data-copy="飞来寺观景台停车场">
-            <span>飞来寺观景台停车场</span>
+        <tr><th>北上</th><td>从拉姆央措直接走 · 途中金沙江大拐弯最多停 10–15 分钟，直达梅里悦居民宿</td></tr>
+        <tr><th>晚上</th><td>入住梅里悦居民宿，车停民宿
+          <button type="button" class="copy-box" data-copy="梅里悦居民宿(飞来寺梅里雪山景区店)">
+            <span>梅里悦居民宿(飞来寺梅里雪山景区店)</span>
             <span class="copy-tag">复制</span>
           </button>
-          <button type="button" class="copy-box" data-copy="迪庆藏族自治州德钦县云岭乡西当村梅里雪山景区" style="margin-top:6px">
-            <span>迪庆藏族自治州德钦县云岭乡西当村梅里雪山景区</span>
+          <button type="button" class="copy-box" data-copy="迪庆藏族自治州德钦县升平镇巨水村委会飞来寺15号" style="margin-top:6px">
+            <span>迪庆藏族自治州德钦县升平镇巨水村委会飞来寺15号</span>
             <span class="copy-tag">复制</span>
           </button>
         </td></tr>
-        <tr><th>晚上</th><td>H6 停收费观景台停车场过夜。车位满了再现场找民宿停车场 / 临时订房</td></tr>
       </table>
-      <div class="note">3号把普达措走完再走。纳帕海只补2号漏掉的那段，拉姆央措只拍倒影。不靠提前去飞来寺占位。顶不住高反或太冷，当场订飞来寺任意能睡的房，不要硬扛。</div>
+      <div class="note">3号把普达措走完再走。纳帕海只补2号漏掉的那段，拉姆央措只拍倒影。晚上入住梅里悦居民宿。高反明显就少走动、早点回房间躺下。</div>
       <div class="note">月照银山：10/3 是下弦月（约一半亮），月亮大约后半夜才升，晚上 9–10 点多半看不到银山。天晴且没困到倒，零点后看一眼即可，不要为它熬夜——4号才是大驾驶日。</div>
     </section>
 
@@ -392,9 +370,13 @@
         <li>寺在北、湖在南。从湖南岸往北拍，才能把松赞林收进水面。<b>不买票、不坐观光车上山。</b></li>
         <li>沿环湖栈道走大约 200 米到 <b>浮桥</b>，这是比较完整的全寺倒影。无风才像镜子；风大就碎，拍一张就走。</li>
         <li>绕湖一圈约 1 小时，<b>这次不绕</b>。栈道如果也要检票，就在停车场或路边拍，不要为了进寺买票。</li>
-        <li>拍完直接北上飞来寺。途中金沙江大拐弯最多停 10–15 分钟。
-          <button type="button" class="copy-box" data-copy="飞来寺观景台停车场" style="margin-top:8px">
-            <span>飞来寺观景台停车场</span>
+        <li>拍完直接北上飞来寺，入住梅里悦居民宿。途中金沙江大拐弯最多停 10–15 分钟。
+          <button type="button" class="copy-box" data-copy="梅里悦居民宿(飞来寺梅里雪山景区店)" style="margin-top:8px">
+            <span>梅里悦居民宿(飞来寺梅里雪山景区店)</span>
+            <span class="copy-tag">复制</span>
+          </button>
+          <button type="button" class="copy-box" data-copy="迪庆藏族自治州德钦县升平镇巨水村委会飞来寺15号" style="margin-top:6px">
+            <span>迪庆藏族自治州德钦县升平镇巨水村委会飞来寺15号</span>
             <span class="copy-tag">复制</span>
           </button>
         </li>
@@ -410,9 +392,14 @@
         <span class="chip">不停香格里拉景点</span>
       </div>
       <table>
-        <tr><th>06:30–06:50</th><td>飞来寺观景台就位（人在停车场就在附近）</td></tr>
+        <tr><th>06:30–06:50</th><td>从梅里悦居出发，到飞来寺观景台就位
+          <button type="button" class="copy-box" data-copy="飞来寺观景台停车场">
+            <span>飞来寺观景台停车场</span>
+            <span class="copy-tag">复制</span>
+          </button>
+        </td></tr>
         <tr><th>07:20–08:00</th><td>日照金山（约15–30分钟，看云；看不到也走）</td></tr>
-        <tr><th>08:40前</th><td>早饭、收车内行李。若临时住了酒店则退房</td></tr>
+        <tr><th>08:40前</th><td>早饭、回梅里悦居退房、收行李</td></tr>
         <tr><th>≤09:00</th><td>出发南下 · 导航下方店名（勿加香格里拉景点途经）
           <button type="button" class="copy-box" data-copy="昆明长水国际机场智选假日酒店">
             <span>昆明长水国际机场智选假日酒店</span>
@@ -447,62 +434,6 @@
         <tr><th>06:45</th><td>起飞回广东</td></tr>
       </table>
     </section>
-
-    <div class="section-title" id="pack">出行必带</div>
-    <section class="card">
-      <h2 style="font-size:14px;margin-bottom:4px;">衣物装备</h2>
-      <ul class="check">
-        <li><input type="checkbox" /><span>冲锋衣 + 抓绒/薄羽绒服（飞来寺早晚接近 0℃）</span></li>
-        <li><input type="checkbox" /><span>帽子、手套、围巾</span></li>
-        <li><input type="checkbox" /><span>运动鞋/徒步鞋（中虎跳 + 悠幽 + 属都湖）</span></li>
-        <li><input type="checkbox" /><span>墨镜、SPF50+防晒、唇膏</span></li>
-        <li><input type="checkbox" /><span>保温杯、充电宝、车载充电器</span></li>
-        <li><input type="checkbox" /><span>3号睡车：两人睡袋或厚毯子 + 防潮垫/车用遮光帘。不要整夜怠速开空调</span></li>
-      </ul>
-      <h2 style="font-size:14px;margin:12px 0 4px;">药品证件钱</h2>
-      <ul class="check">
-        <li><input type="checkbox" /><span>身份证、驾照、驾驶证复印件/电子版</span></li>
-        <li><input type="checkbox" /><span>氧气瓶（川西若习惯用就带）、布洛芬、创可贴、晕车药</span></li>
-        <li><input type="checkbox" /><span>现金小额（中虎跳村民费、停车场）</span></li>
-        <li><input type="checkbox" /><span>零食、葡萄糖、润喉糖</span></li>
-      </ul>
-    </section>
-
-    <div class="section-title" id="car">租车核对表</div>
-    <section class="card">
-      <h2 style="font-size:14px;margin-bottom:4px;">已订</h2>
-      <ul class="check">
-        <li><input type="checkbox" checked /><span>神州 · 哈弗 H6 · 昆明南站取、长水机场还（两边 24 小时）</span></li>
-        <li><input type="checkbox" checked /><span>10/5 04:45 机场还车已写入订单</span></li>
-      </ul>
-      <h2 style="font-size:14px;margin:12px 0 4px;">取车（10/1 · 昆明高铁南站）</h2>
-      <button type="button" class="copy-box" data-copy="昆明市呈贡区昆明南站到达层7号出口对面C区停车场C-5、C-6车道" style="margin:8px 0">
-        <span>昆明市呈贡区昆明南站到达层7号出口对面C区停车场C-5、C-6车道</span>
-        <span class="copy-tag">复制</span>
-      </button>
-      <ul class="check">
-        <li><input type="checkbox" /><span>车身/轮毂/内饰/仪表/油量 全程录像</span></li>
-        <li><input type="checkbox" /><span>旧伤全部备注进订单</span></li>
-        <li><input type="checkbox" /><span>核对行驶证、年检、保险单、备胎工具</span></li>
-        <li><input type="checkbox" /><span>确认油费结算方式（还车加满等）</span></li>
-      </ul>
-      <h2 style="font-size:14px;margin:12px 0 4px;">还车前夜（10/4 · 智选假日）</h2>
-      <ul class="check">
-        <li><input type="checkbox" /><span>按合同加满油</span></li>
-        <li><input type="checkbox" /><span>清理垃圾、检查有无物品遗落</span></li>
-        <li><input type="checkbox" /><span>导航确认还车点；网点电话 17898712053</span></li>
-        <li><input type="checkbox" /><span>设闹钟 04:00；已网上值机</span></li>
-      </ul>
-      <h2 style="font-size:14px;margin:12px 0 4px;">还车（10/5）</h2>
-      <button type="button" class="copy-box" data-copy="昆明市官渡区长水机场停车楼B3层J07车道1号车位" style="margin:8px 0">
-        <span>昆明市官渡区长水机场停车楼B3层J07车道1号车位</span>
-        <span class="copy-tag">复制</span>
-      </button>
-      <ul class="check">
-        <li><input type="checkbox" /><span>04:45 验车过程录像</span></li>
-        <li><input type="checkbox" /><span>拿到还车确认 / 平台订单完结截图</span></li>
-      </ul>
-    </section>
   </main>
 
   <nav class="nav-hint">
@@ -515,8 +446,6 @@
     <a href="#lamu">拉姆央措</a>
     <a href="#d4">D4</a>
     <a href="#d5">D5</a>
-    <a href="#pack">物品</a>
-    <a href="#car">租车</a>
   </nav>
   <script>
     function copyText(text) {
